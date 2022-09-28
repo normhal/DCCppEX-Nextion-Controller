@@ -98,7 +98,16 @@ A Nextion Based Controller for DCC++ and DCC-EX
 *    - Reverse Button        - Arduino pin D8
 *    - Clockwise Pulses      - Arduino pin D3
 *    - AntiClockwise Pulses  - Arduino pin D2
-*    Note: There are a few different versions of Rotary Encoders. Refer to the appropriate Datasheet for specific pin assignments
+
+*   If you're using one of the Rotary Encoder modules, these are the connections required:
+*   - Reverse button = "SW"
+*   - Clockwise pulses = "DT"
+*   - Anticlockwise pulses = "CLK"
+*   
+*   ![rotary-encoder-module_x](https://user-images.githubusercontent.com/14205909/192863650-f1ab71dc-d0b1-4741-831a-37fc6f007570.jpg)
+
+*   Note: There are a few different versions of Rotary Encoders. Refer to the appropriate Datasheet for specific pin assignments
+*   
 *  - Nextion Display
 *    - Software Serial RX    - Arduino pin D4 to Nextion TX wire (Blue)
 *    - Software Serial TX    - Arduino pin D5 to Nextion RX wire (Yellow)
