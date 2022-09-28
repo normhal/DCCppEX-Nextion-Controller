@@ -43,7 +43,7 @@
   #if defined (ESP8266) || (ESP32)
   
     #define WIFI                        //WiFi on ESP32 or 8266 can be disabled here
-    #define SHOW_WIFI                   //This option shows WiFi commands on the Serial Debug Console
+//    #define SHOW_WIFI                   //This option shows WiFi commands on the Serial Debug Console
 
     String ssid      = "SSID";          //Update these values to suit your own credentials
     String password  = "PASSWORD";      //For the first Boot Only
@@ -78,53 +78,60 @@
     /***********************************************************************************************************/
     //Up to 10 Locos can be defined
        
-    #define numLocoDefs 10    //Don't exceed 10 for an UNO, but can go up to 50 for an ESP:-)
-    #define locoNameLen 9     //Don't modify
-    #define locoTypeLen 9     //Don't modify
+    #define numLocoDefs 20    //Don't exceed 10 for an UNO, but can go up to 50 for an ESP:-)
 
-    struct userLoco {
-      char locoName[locoNameLen];
-      char locoType[locoTypeLen];
-      uint16_t roadNum;
-      uint16_t address;
-    };
-    struct userLoco userLocos[numLocoDefs] = 
-    { 
-        {"Santa Fe", "SD40-2", 5100, 3},        //Format is Name(max 8 chars), Type (max 8 chars), Road Number, Address
-        {"UP", "SD40", 5101, 4},
-        {"CP Rail", "SD40-3", 5102, 5},
-        {"BNSF", "SD40-2", 5103, 6},
-        {"CN", "SD80", 5104, 7},
-        {"NYC", "SD40-2", 5105, 8},
-        {"Chessie", "SD40-2", 5106, 9},
-        {"NH", "SD40-2", 5107, 10},
-        {"Santa Fe", "SD40-2", 5108, 11},
-/*         
-        {"Santa Fe", "GP38", 5109, 12}, 
-        {"Santa Fe", "SD40-2", 5100, 3},        //Format is Name(max 8 chars), Type (max 8 chars), Road Number, Address
-        {"CN", "SD40-3", 5102, 5},
-        {"Chessie", "SD40-2", 5106, 9},
-        {"Santa Fe", "SD40-2", 5108, 11}, 
-        {"BNSF", "SD40-2", 5103, 6},
-        {"CP Rail", "SD80", 5104, 7},
-        {"NYC", "SD40-2", 5105, 8},
-        {"UP", "SD40", 5101, 4},
-        {"NH", "SD40-2", 5107, 10},
-*/
-        {"Santa Fe", "GP38", 5109, 12} 
-    };
+    String userLocoNames[numLocoDefs]   = {"Santa Fe", "UP", "CP Rail", "BNSF", "UP",        //Max 8 characters per name
+                                          "Santa Fe", "UP", "CP Rail", "CP Rail", "BNSF"
+    //                                  /*
+                                          ,"UP", "CP Rail", "UP", "Santa Fe", "UP",        
+                                           "CP Rail", "CP Rail", "BNSF", "BNSF", "UP"
+    //                                  */
+                                          };
+                                          
+    String userLocoTypes[numLocoDefs]   = {"SD40-2", "SD40-2", "SD40-3", "SD40-2", "SD80",        //Max 8 characters per type
+                                           "SD40-2", "SD40-2", "SD40-3", "SD80", "SD40-2"
+    //                                  /*
+                                          ,"SD40-2", "SD40-3", "SD80", "SD40-2", "SD40-2", 
+                                           "SD40-3", "SD40-3", "SD40-2", "SD40-3", "SD40-2"
+    //                                  */
+                                          };
+    //Loco Addresses
+    uint16_t userLocoAddrs[numLocoDefs] = {3, 4, 5, 6, 7,
+                                           8, 9, 10, 11, 12
+    //                                   /*
+                                           ,13, 14, 15, 16, 17, 
+                                            18, 19, 20, 21, 22
+    //                                   */
+                                           };
+
+    //Loco Road Numbers                                      
+    uint16_t userLocoRNums[numLocoDefs] = {5108, 5109, 5110, 5111, 5112, 
+                                           5113, 5114, 5115, 5116, 5117
+    //                                   /*
+                                           ,5118, 5119, 5120, 5121, 5122,
+                                            5123, 5124, 5125, 5126, 5127
+    //                                   */
+                                           };    //Max 4 digits per road number
+
     /***********************************************************************************************************/
     //Up to 12 Accessories Names can be defined
       
     #define numAccDefs 12       //12 fills one page on the Nextion Controller
-    #define accNameLen 9        //Don't Modify
     
-    struct userAcc {      
-      char accName[accNameLen];
-      uint16_t accAddress; 
-      uint8_t accImage;
-      uint8_t accType;
-    };
+    String userAccNames[numAccDefs] = {"ST1-W1",
+                                       "ST1-W2",
+                                       "ST1-W3",
+                                       "ST2-W1",
+                                       "ST2-W2",
+                                       "ST2-W3",
+                                       "ST1-E1",
+                                       "ST1-E2",
+                                       "ST1-E3",
+                                       "ST2-E1",
+                                       "ST2-E2",
+                                       "ST2-E3"};
+    
+    uint16_t userAccAddrs[numAccDefs] = {400,401,402,406,407,408,403,404,405,409,410,411};
 
     // Accessory Images as defined within the Nextion
     //
@@ -137,43 +144,20 @@
     #define RH180 214   //Right Hand 180 Degrees
     #define RH270 212   //Right Hand 270 Degrees
 
-    struct userAcc userAccs[numAccDefs] = {   //Accessory IDs are 0 to 9
-      {"ST1-W1", 400, LH0, 0},              //Format is Name (8 Chars max), Address, Image, Type(not used yet) 
-      {"ST1-W2", 401, RH180, 0},
-      {"ST1-W3", 402, RH0, 0},
-      {"ST2-W1", 403, LH180, 0},
-      {"ST2-W2", 404, RH0, 0},
-      {"ST2-W3", 405, LH180, 0},
-      {"ST1-E1", 406, LH0, 0},
-      {"ST1-E2", 407, RH180, 0},
-      {"ST1-E3", 408, LH0, 0},
-      {"ST2-E1", 409, RH180, 0},
-      {"ST2-E2", 410, LH0, 0},
-      {"ST2-E3", 411, RH180, 0}
-    };
-  
+    uint8_t  userAccImages[numAccDefs] = {LH0,RH180,RH0,LH180,RH0,LH180,LH0,RH180,LH0,RH180,LH0,RH180};
+    uint8_t  userAccTypes[numAccDefs] = {0,0,0,0,0,0,0,0,0,0,0,0};    //Types not used (yet)
+
     /***********************************************************************************************************/
     //Up to 6 Routes can be defined - 6 accessory IDs per route   
     
-    #define numRouteDefs 6          //6 Routes per Nextion Page
-    #define accessoriesPerRoute 6   //max 6 Accessories per Route
+    #define numRouteDefs 2          //6 Routes per Nextion Page
+
+    #define accessoriesPerRoute 6
     #define C 0                     //Closed = 0
     #define T 1                     //Thrown = 1
+    
+    uint8_t userRouteIDs[numRouteDefs*accessoriesPerRoute]    = {0,1,2,6,7,8,0,1,2,6,7,8};       //Format of a Route is accessoriesPerRoute x Acc IDs, state pairs
+    uint8_t userRouteStates[numRouteDefs*accessoriesPerRoute] = {C,C,C,T,T,T,T,T,T,C,C,C};
 
-    struct routeElement
-    {
-      uint8_t accID;
-      uint8_t accState;
-    };
-
-    struct routeElement routeElements[numRouteDefs][accessoriesPerRoute] = 
-    {
-      {{0,C}, {1,C}, {2,C}, {6,T}, {7,T}, {8,T}},   //Format of an Element is Acc ID, Required State (C)losed or (T)hrown
-      {{0,T}, {1,T}, {2,T}, {6,C}, {7,C}, {8,C}},   //see Accessories above for ID numbers
-      {{0,C}, {1,C}, {2,C}, {6,T}, {7,T}, {8,T}},
-      {{0,T}, {1,T}, {2,T}, {6,C}, {7,C}, {8,C}},
-      {{0,C}, {1,C}, {2,C}, {6,C}, {7,C}, {8,C}},
-      {{0,T}, {1,T}, {2,T}, {6,T}, {7,T}, {8,T}}
-    };
   #endif
 #endif

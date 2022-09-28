@@ -370,7 +370,7 @@ void buttonScheduler()
         case ThrottleButton:
           initPage(ThrottlePage);
           break;
-        #if defined ESP
+        #if defined WIFI
         case WiFiRetryButton:
           if(wifiEnabled == 1)
           {

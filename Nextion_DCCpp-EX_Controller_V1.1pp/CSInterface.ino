@@ -36,7 +36,7 @@ int connectWiFi(uint8_t retries)
 {
   #if defined WIFI
     initPage(StatusPage);                         //Switch Nextion to Status Page
-    if(wifiEnabled == 255) return(1);
+    if(wifiEnabled == 0) return(1);
     WiFi.begin(ssid.c_str(), password.c_str());
     wifiProgress = "Connecting to AP...";
       nextionSetText(F("Progress"), wifiProgress);

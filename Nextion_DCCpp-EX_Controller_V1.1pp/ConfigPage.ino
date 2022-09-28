@@ -97,47 +97,47 @@ void configPage(uint8_t button)
     {
       nextionCommand(("Load.pic=" + String(BUTTON_ON)).c_str());
       #if defined HARD_CODED_VALUES
-        for(uint8_t i = 0; i < numLocoDefs; i++)
+      for(uint8_t i = 0; i < numLocoDefs; i++)
         {
           #if defined ESP
-            writeEEPROMName((locoNameBase + (i * (locoNameLen))), String((userLocos[i].locoName)));    //address, string
-            writeEEPROMName((locoTypeBase + (i * (locoTypeLen))), String((userLocos[i].locoType)));
+            writeEEPROMName((locoNameBase + (i * (locoNameLen))), String((userLocoNames[i]) + '\0'));
+            writeEEPROMName((locoTypeBase + (i * (locoTypeLen))), String((userLocoTypes[i]) + '\0'));
           #endif
           #if defined AVR_UNO && !defined USE_NEXTION_EEPROM
-            writeEEPROMName((locoNameBase + (i * (locoNameLen))), String((userLocos[i].locoName)));
-            writeEEPROMName((locoTypeBase + (i * (locoTypeLen))), String((userLocos[i].locoType)));
+            writeEEPROMName((locoNameBase + (i * (locoNameLen))), String((userLocoNames[i]) + '\0'));
+            writeEEPROMName((locoTypeBase + (i * (locoTypeLen))), String((userLocoTypes[i]) + '\0'));
           #endif
           #if defined AVR_UNO && defined USE_NEXTION_EEPROM
-            nextionCommand(("wepo \"" + userLocos[i].locoName + "\"," + String(locoNameBase + (i * (locoNameLen)))).c_str());
-            wait(5);
-            nextionCommand(("wepo \"" + userLocos[i].locoType + "\"," + String(locoTypeBase + (i * (locoTypeLen)))).c_str());
-            wait(5);
+            nextionCommand(("wepo \"" + userLocoNames[i] + "\"," + String(locoNameBase + (i * (locoNameLen)))).c_str());
+            delay(5);
+            nextionCommand(("wepo \"" + userLocoTypes[i] + "\"," + String(locoTypeBase + (i * (locoTypeLen)))).c_str());
+            delay(5);
           #endif
-          writeLocoAddress(i, userLocos[i].address);
-          writeLocoRNum(i, userLocos[i].roadNum);
+          writeLocoAddress(i, userLocoAddrs[i]);
+          writeLocoRNum(i, userLocoRNums[i]);
         }
         for(uint8_t a = 0; a < numAccDefs; a++)                             //"a" is equivalent to "ID" in this instance
         {
           #if defined ESP
-          writeEEPROMName(accNameBase + (a*(accNameLen)), userAccs[a].accName);
+          writeEEPROMName(accNameBase + (a*(accNameLen)), userAccNames[a] + '\0');
           #endif
           #if defined AVR_UNO && !defined USE_NEXTION_EEPROM
-          writeEEPROMName(accNameBase + (a*(accNameLen)), userAccs[a].accName);
+          writeEEPROMName(accNameBase + (a*(accNameLen)), userAccNames[a] + '\0');
           #endif
           #if defined AVR_UNO && defined USE_NEXTION_EEPROM
-            nextionCommand(("wepo \"" + userAccs[a].accName + "\"," + String(accNameBase + (a * (accNameLen)))).c_str());
+            nextionCommand(("wepo \"" + userAccNames[a] + "\"," + String(accNameBase + (a * (accNameLen)))).c_str());
             delay(5);
           #endif
-          writeAccAddress(a, userAccs[a].accAddress);
-          writeEEPROMByte(accImageBase + a, userAccs[a].accImage); 
-          writeEEPROMByte(accTypeBase + a, userAccs[a].accType);               //default type 0 for now
+          writeAccAddress(a, userAccAddrs[a]);
+          writeEEPROMByte(accImageBase + a, userAccImages[a]); 
+          writeEEPROMByte(accTypeBase + a, userAccTypes[a]);               //default type 0 for now
         }
         for(uint8_t r = 0; r < numRouteDefs; r++)      //number of Routes to initialize
         {
           for(uint8_t i = 0; i < accessoriesPerRoute; i++)
           {
-            writeEEPROMByte((routeListBase + (r * accessoriesPerRoute)+i), routeElements[r][i].accID);
-            writeEEPROMByte((routeStateBase + (r * accessoriesPerRoute)+i), routeElements[r][i].accState);
+            writeEEPROMByte((routeListBase + (r * accessoriesPerRoute)+i), userRouteIDs[(r*accessoriesPerRoute)+i]);
+            writeEEPROMByte((routeStateBase + (r * accessoriesPerRoute)+i), userRouteStates[(r*accessoriesPerRoute)+i]);
           }
         }
       #endif

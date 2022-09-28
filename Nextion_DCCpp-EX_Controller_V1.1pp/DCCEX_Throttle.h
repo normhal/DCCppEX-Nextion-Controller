@@ -22,7 +22,7 @@
   #define DCCEXTHROTTLE_H
 
   #define Version "V1.1++"
-  const uint8_t EEPROMCODE = 0x5A;
+  const uint8_t EEPROMCODE = 0xA5;
   
   #include <EEPROM.h>
 

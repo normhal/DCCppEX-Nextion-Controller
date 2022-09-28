@@ -22,19 +22,16 @@
 */
 void statusPage(uint8_t button)
 {
-//  #if !defined SAVE_MEMORY    // && defined ESP
+  #if !defined SAVE_MEMORY && defined ESP
     switch (button)
     {
       case ConfigButton:
         initPage(ConfigPage);
         break;
       case DoneButton:
-        #if defined WIFI
-          updateWiFi();
-        #endif
+        updateWiFi();
         initPage(MenuPage);
         break;
-    #if defined ESP
       case  RetryButton:
         wifiEnabled = 1;
         writeEEPROMByte(eewifiEnabled, wifiEnabled);                //WiFi default
@@ -56,11 +53,13 @@ void statusPage(uint8_t button)
       case WiFiEnabledOFF:
         wifiEnabled = 0;
         writeEEPROMByte(eewifiEnabled, wifiEnabled);                //WiFi default
-        EEPROM.commit();
+        #if defined ESP
+          EEPROM.commit();
+        #endif
         updateWiFi();
         break;
-    #endif
       default:
         break;
     }
+  #endif
 }
