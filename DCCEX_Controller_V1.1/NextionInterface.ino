@@ -45,6 +45,7 @@ String nextionReceive(){
   {
     readTemp =  nextion.read();
     readData += readTemp;
+//    Serial.println(readData);
     readIndex++;
     if (readIndex >= ReadBufferLen) return readData;       //Maximum length of 20
     wait(1);

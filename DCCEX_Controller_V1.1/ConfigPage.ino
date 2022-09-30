@@ -97,7 +97,7 @@ void configPage(uint8_t button)
     {
       nextionCommand(("Load.pic=" + String(BUTTON_ON)).c_str());
       #if defined HARD_CODED_VALUES
-      for(uint8_t i = 0; i < numLocoDefs; i++)
+      for(uint16_t i = 0; i < numLocoDefs; i++)
         {
           #if defined ESP
             writeEEPROMName((locoNameBase + (i * (locoNameLen))), String((userLocoNames[i]) + '\0'));
@@ -116,7 +116,7 @@ void configPage(uint8_t button)
           writeLocoAddress(i, userLocoAddrs[i]);
           writeLocoRNum(i, userLocoRNums[i]);
         }
-        for(uint8_t a = 0; a < numAccDefs; a++)                             //"a" is equivalent to "ID" in this instance
+        for(uint16_t a = 0; a < numAccDefs; a++)                             //"a" is equivalent to "ID" in this instance
         {
           #if defined ESP
           writeEEPROMName(accNameBase + (a*(accNameLen)), userAccNames[a] + '\0');

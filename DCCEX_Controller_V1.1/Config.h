@@ -45,9 +45,9 @@
     #define WIFI                        //WiFi on ESP32 or 8266 can be disabled here
     #define SHOW_WIFI                   //This option shows WiFi commands on the Serial Debug Console
 
-    String ssid      = "SSID";          //Update these values to suit your own credentials
-    String password  = "PASSWORD";      //For the first Boot Only
-    String host      = "10.0.0.15";     //DCCEX IP Address
+    String ssid      = "EnKayH";          //Update these values to suit your own credentials
+    String password  = "00300A796762";      //For the first Boot Only
+    String host      = "10.0.0.12";     //DCCEX IP Address
     uint16_t port    = 2560;
 
   /***********************************************************************************************************/
@@ -73,44 +73,36 @@
      * Functions for each Loco can be added, edited or deleted via the Loco Edit Page
   /***********************************************************************************************************
   */
-  #ifdef HARD_CODED_VALUES
+  #if defined HARD_CODED_VALUES
 
     /***********************************************************************************************************/
     //Up to 10 Locos can be defined for an UNO or 50 for ESP
        
-    #define numLocoDefs 20    //Don't exceed 10 for an UNO, but can go up to 50 for an ESP:-)
+    #define numLocoDefs 10    //Don't exceed 10 for an UNO, but can go up to 50 for an ESP:-)
 
     String userLocoNames[numLocoDefs]   = {"Santa Fe", "UP", "CP Rail", "BNSF", "UP"        //Max 8 characters per name
                                           ,"Santa Fe", "UP", "CP Rail", "CP Rail", "BNSF"
-      #if numLocoDefs == 20
-                                          ,"UP", "CP Rail", "UP", "Santa Fe", "UP"
-                                          ,"CP Rail", "CP Rail", "BNSF", "BNSF", "UP"
-      #endif
+//                                          ,"UP", "CP Rail", "UP", "Santa Fe", "UP"
+//                                          ,"CP Rail", "CP Rail", "BNSF", "BNSF", "UP"
                                           };
                                           
     String userLocoTypes[numLocoDefs]   = {"SD40-2", "SD40-2", "SD40-3", "SD40-2", "SD80"        //Max 8 characters per type
                                           ,"SD40-2", "SD40-2", "SD40-3", "SD80", "SD40-2"
-      #if numLocoDefs == 20
-                                          ,"SD40-2", "SD40-3", "SD80", "SD40-2", "SD40-2"
-                                          ,"SD40-3", "SD40-3", "SD40-2", "SD40-3", "SD40-2"
-      #endif
+//                                          ,"SD40-2", "SD40-3", "SD80", "SD40-2", "SD40-2"
+//                                          ,"SD40-3", "SD40-3", "SD40-2", "SD40-3", "SD40-2"
                                           };
     //Loco Addresses
     uint16_t userLocoAddrs[numLocoDefs] = {3, 4, 5, 6, 7
                                            ,8, 9, 10, 11, 12
-      #if numLocoDefs == 20
-                                           ,13, 14, 15, 16, 17
-                                           ,18, 19, 20, 21, 22
-      #endif
+//                                           ,13, 14, 15, 16, 17
+//                                           ,18, 19, 20, 21, 22
                                            };
 
     //Loco Road Numbers                                      
     uint16_t userLocoRNums[numLocoDefs] = {5108, 5109, 5110, 5111, 5112 
                                            ,5113, 5114, 5115, 5116, 5117
-      #if numLocoDefs == 20
-                                           ,5118, 5119, 5120, 5121, 5122
-                                           ,5123, 5124, 5125, 5126, 5127
-      #endif
+//                                           ,5118, 5119, 5120, 5121, 5122
+//                                           ,5123, 5124, 5125, 5126, 5127
                                            };    //Max 4 digits per road number
 
     /***********************************************************************************************************/
@@ -153,11 +145,12 @@
     #define numRouteDefs 2          //6 Routes per Nextion Page
 
     #define accessoriesPerRoute 6
-    #define C 0                     //Closed = 0
-    #define T 1                     //Thrown = 1
+    #define Closed 0                     //Closed = 0
+    #define Thrown 1                     //Thrown = 1
     
     uint8_t userRouteIDs[numRouteDefs*accessoriesPerRoute]    = {0,1,2,6,7,8,0,1,2,6,7,8};       //Format of a Route is accessoriesPerRoute x Acc IDs, state pairs
-    uint8_t userRouteStates[numRouteDefs*accessoriesPerRoute] = {C,C,C,T,T,T,T,T,T,C,C,C};
+//    uint8_t userRouteStates[numRouteDefs*accessoriesPerRoute] = {C,C,C,T,T,T,T,T,T,C,C,C};
+    uint8_t userRouteStates[numRouteDefs*accessoriesPerRoute] = {0,0,0,1,1,1,1,1,1,0,0,0};
 
   #endif
 #endif

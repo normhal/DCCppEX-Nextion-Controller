@@ -257,7 +257,7 @@ void setup()
 {
   Serial.begin(115200);     //For the direct connection to DCC++ or DCC-EX
   nextion.begin(38400);     //This speed has been found to be suitable for both Hard- and Software Nextion Connections.
-  
+  wait(100);
   initPage(CoverPage);
   wait(3000);
 

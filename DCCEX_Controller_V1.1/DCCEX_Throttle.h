@@ -77,7 +77,7 @@
     #define USE_SOFTWARE_SERIAL
     #include <SoftwareSerial.h>
     #include <ESP8266WiFi.h>
-    SoftwareSerial nextion(4, 14); //D4, D5// Nextion TX (Blue) to pin 4 and RX (Yellow) to pin 14 of ESP8266
+    SoftwareSerial nextion(4, 14); //D2??, D5// Nextion TX (Blue) to GPIO4 and RX (Yellow) to GPIO14 of ESP8266
     WiFiClient client;
     const int buttonPin = 5;       // Arduino 5 // the Arduino Pin number for the encoder reverse button
     static int pinA = 13;          // The first hardware interrupt pin
