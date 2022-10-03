@@ -1,5 +1,7 @@
-# DCCppEX-Nextion-Controller
-A Nextion Based Controller for DCC++ and DCC-EX
+# Nextion Based DCC++EX Controller
+
+A Nextion Based Controller for DCC++ and DCC-EX.
+
 Designed and written by Norman Halland  2022
   
 # My Design Objective
@@ -195,4 +197,7 @@ Highlighting an Inventory Row and pressing the "Select" button will pass that lo
 # Have Fun:-)
   
 See the Nextion "Credits", "Info" and "Tips" pages for Acknowledgements and a few other items.
+
+# Addendum
+
  
