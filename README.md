@@ -8,7 +8,7 @@ Designed and written by Norman Halland  2022
 
 What started out as a project to modify Dave Bodnar's original Nextion Throttle while trying to learn "C" and a bit of "C++" has turned out to be a Controller for both DCC++ and DCC-EX Command Stations using either Direct Serial or WiFi Connections, all based on the Nextion Display range. 
 
-A basic requirement was that it would run on as many platforms as possible and thus use limites "Device Specific" features. Arduino variants from an Arduino Pro Mini, up to ESP32 devices, STM32, and others, should be able to be used, with minimal design and feature restrictions.
+A basic requirement was that it would run on as many platforms as possible and thus use limited "Device Specific" features. Arduino variants from an Arduino Pro Mini, up to ESP32 devices, STM32, and others, should be able to be used, with minimal design and feature restrictions.
 
 IMHO, the Nextion range of displays offer a great blend of features, performance and ease of use. Nextion ".tft" binaries are available for Basic and Enhanced Displays of 3.2, 3.5 and 5.0 inch sizes. Some experimental work has been done for the 4.3 inch variants if anyone is interested. In view of a previous (negative) experience, the Nextion HMI "Source" files are available on request.
 
@@ -30,6 +30,7 @@ At the outset, any thought of WiFi was outside the scope of my understanding of 
 # Supported Arduino Boards
  
 -  UNO, including the Nano and similar mini boards - Direct and Wireless connection via Serial port and HC-12
+   - Refer to the Addendum below for some UNO considerations
 -  ESP8266 - WiFi and direct serial connection, and extended capacity features supported
 -  ESP32 - WiFi and Direct Serial Connection, and is the preferred processor for the Arduino Sketch
 
@@ -75,15 +76,6 @@ What You'll Need
   - Clockwise Pulses      - Arduino pin D3
   - AntiClockwise Pulses  - Arduino pin D2
 
-  If you're using one of the Rotary Encoder modules, these are the connections required:
-  - Reverse button = "SW"
-  - Clockwise pulses = "DT"
-  - Anticlockwise pulses = "CLK"
-  
-  ![rotary-encoder-module_x](https://user-images.githubusercontent.com/14205909/192863650-f1ab71dc-d0b1-4741-831a-37fc6f007570.jpg)
-
-  Note: There are a few different versions of Rotary Encoders. Refer to the appropriate Datasheet for specific pin assignments
-   
 - Nextion Display
   - Software Serial RX    - Arduino pin D4 to Nextion TX wire (Blue)
   - Software Serial TX    - Arduino pin D5 to Nextion RX wire (Yellow)
@@ -98,8 +90,6 @@ What You'll Need
   - Reverse Button        - ESP8266 pin GPIO5
   - Clockwise Pulses      - ESP8266 pin GPIO13
   - AntiClockwise Pulses  - ESP8266 pin GPIO12
-
-  Note: There are a few different versions of Rotary Encoders. Refer to the appropriate Datasheet for specific pin assignments
 
 - Nextion Display
   - Software Serial RX     - ESP8266 pin GPIO4 to Nextion TX wire (Blue)
@@ -116,8 +106,6 @@ What You'll Need
   - Clockwise Pulses      - ESP32 pin GPIO5
   - AntiClockwise Pulses  - ESP32 pin GPIO4
 
-  Note: There are a few different versions of Rotary Encoders. Refer to the appropriate Datasheet for specific pin assignments
-
 - Nextion Display
   - Hardware Serial RX    - ESP32 pin GPIO16 to Nextion TX wire (Blue) 
   - Hardware Serial TX    - ESP32 pin GPIO17 to Nextion RX wire (Yellow) 
@@ -126,9 +114,20 @@ What You'll Need
   - Hardware Serial RX    - ESP32 pin GPIOx to DCC++, DCC-EX, or HC-12 TX pin 
   - Hardware Serial TX    - ESP32 pin GPIOx to DCC++, DCC-EX, or HC-12 RX pin 
   
+# Note Regarding Rotary Encoders
+
+There are a few different versions of Rotary Encoders. Refer to the appropriate Datasheet for specific pin assignments
+
+If you're using one of the Rotary Encoder modules shown below, these are the connections required:
+  - Reverse button = "SW"
+  - Clockwise pulses = "DT"
+  - Anticlockwise pulses = "CLK"
+
+![rotary_encoder_reduced](https://user-images.githubusercontent.com/14205909/193545784-de124fde-ba3b-4e78-a921-31cfb93faf23.jpg)
+
 # Note Regarding UNO variants
 
-Arduino boards using the ATMega32U4 processor and most mini boards using the ATMega328P chip can be programmed to use the "UNO" bootloader which is smaller and yields the same usable memory as a Standard UNO. In view of the size of the Arduino Sketch, this change is required to provide sufficient progam memory. "Erik" (erik84760) kindly provided the Addendum below for instructions how to replace the UNO bootloader. 
+Arduino boards using the ATMega32U4 processor and most mini boards using the ATMega328P chip can be programmed to use the "UNO" bootloader which is smaller and yields the same usable memory as a Standard UNO. In view of the size of the Arduino Sketch, this change is required to provide sufficient progam memory. "Erik" (erik84750) kindly provided the Addendum below for instructions how to replace the UNO bootloader. 
     
 # Compiling the Arduino Sketch
   
@@ -200,4 +199,7 @@ See the Nextion "Credits", "Info" and "Tips" pages for Acknowledgements and a fe
 
 # Addendum
 
- 
+Instructions for Replacing the Bootloader to increase Available Program memory on some AUNO variants kindly provided by Erik (erik84750)
+
+[Atmega328P modules and bootloaders.docx](https://github.com/normhal/DCCppEX-Nextion-Controller/files/9696402/Atmega328P.modules.and.bootloaders.docx)
+
