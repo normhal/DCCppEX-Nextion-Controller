@@ -199,7 +199,6 @@ See the Nextion "Credits", "Info" and "Tips" pages for Acknowledgements and a fe
 
 # Addendum
 
-Instructions for Replacing the Bootloader to increase Available Program memory on some AUNO variants kindly provided by Erik (erik84750)
+Instructions for Replacing the Bootloader to increase Available Program memory on some Arduino variants kindly provided by Erik (erik84750)
 
-[Atmega328P modules and bootloaders.docx](https://github.com/normhal/DCCppEX-Nextion-Controller/files/9696402/Atmega328P.modules.and.bootloaders.docx)
-
+[ATMega328P Bootloaders.pdf](https://github.com/normhal/DCCppEX-Nextion-Controller/files/9697021/ATMega328P.Bootloaders.pdf)
