@@ -7,7 +7,7 @@ For Arduino UNOs and its variants, all you need is to download and install the I
 
 If using an ESP32 or ESP8266, there are some additional steps you need to take to prepare to compile for them.
 
-Complete the actions in the files below before continuing
+Follow the guidelines in the file entitled "ESP Preparation" before continuing.
 
 # Downloading the Sketch
 
