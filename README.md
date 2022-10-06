@@ -131,6 +131,8 @@ Arduino boards using the ATMega32U4 processor and most mini boards using the ATM
     
 # Compiling the Arduino Sketch
   
+Refer to the "Instructions.md" file in the "Docs" folder to configure the Arduin IDE as well as to Download, Build and Flash the Arduino Sketch.
+
 The "Config.h" file in the sketch is the ONLY file you MIGHT need to modify for your preferences. All operational configuration values can be modified via the "Config" and "WiFi Status" pages of the Nextion. 
     
 Once the Arduino IDE has been set up for the intended host processor, no additional libraries are needed, although the UNO and ESP8266 versions need the Software Serial library. 
