@@ -10,9 +10,9 @@ What started out as a project to modify Dave Bodnar's original Nextion Throttle 
 
 A basic requirement was that it would run on as many platforms as possible and thus use limited "Device Specific" features. Arduino variants from an Arduino Pro Mini, up to ESP32 devices, STM32, and others, should be able to be used, with minimal design and feature restrictions.
 
-IMHO, the Nextion range of displays offer a great blend of features, performance and ease of use. Nextion ".tft" binaries are available for Basic and Enhanced Displays of 3.2, 3.5 and 5.0 inch sizes. Some experimental work has been done for the 4.3 inch variants if anyone is interested. In view of a previous (negative) experience, the Nextion HMI "Source" files are available on request.
+IMHO, the Nextion range of displays offer a great blend of features, performance and ease of use. Nextion ".tft" binaries are available for Basic and Enhanced Displays of 3.2, 3.5 and 5.0 inch sizes. Some experimental work has been done for the 4.3 inch variants if anyone is interested. In view of a previous (negative) experience, the Nextion HMI "Source" files are available only on request.
 
-The DCC++ protocol was chosen in order to be compatible with both DCC++ and DCC-EX Command Stations. A future (ESP32 only) version is being considered and will possibly only be for DCC-EX environments.
+The DCC++ protocol was chosen in order to be compatible with both DCC++ and DCC-EX Command Stations. A future (ESP32 or Pico W only) version is being considered and will possibly only be for DCC-EX environments.
 
 # Disclaimer:-(
   
@@ -21,9 +21,9 @@ thoughts or comments!
   
 # History
 
-Dave Bodnar originally designed a Throttle for the DCC++ system based on the Nextion display and used an Arduino UNO as the supporting platform. Dave's initial version was the basis of the version I made available around 2017. This current version is essentially a re-design and re-write of everything, except for a few snippets of Dave's original code. Full acknowledgement, credit and gratitude is thus given to Dave for his work.
+Dave Bodnar originally designed a Throttle for the DCC++ system based on the Nextion display and used an Arduino UNO as the supporting platform. Dave's initial version was the basis of the version I made available around 2017. That version added some features and sported a revised Nextion HMI. This ***New*** version is essentially a re-design and re-write of everything, except for a few snippets of Dave's original code. Full acknowledgement, credit and gratitude is thus given to Dave for his work.
 
-Subsequent to the first version I made available, little further development was done, until late in 2021 when a fellow hobbyist (Erik) started asking me some questions:-) This triggered a re-visit of the "Throttle" and I was again tempted to build on the sketchy knowledge I had gained the first time round. After many hours writing, re-writing, thinking, re-thinking, experimenting, abandoning, getting frustrated, feeling elated, and a thousand other experiences, the current version I have called the Nextion based "DCC++EX Controller" emerged. Two other hobbyists, "esfeld" (Steve) and "jbsorocaba" (Francisco) joined Erik and I as a team to discuss, test, critique and suggest ideas. Version 1.0 and now Version 1.1 represent the result of 9 months of fun and contributions by all. 
+Subsequent to the first version I made available around 2017, little further development was done, until late in 2021 when a fellow hobbyist (Erik) started asking me some questions:-) This triggered a re-visit of the "Throttle" and I was again tempted to build on the sketchy knowledge I had gained the first time round. After many hours writing, re-writing, thinking, re-thinking, experimenting, abandoning, getting frustrated, feeling elated, and a thousand other experiences, the current version I have called the Nextion based "DCC++EX Controller" emerged. Two other hobbyists, "esfeld" (Steve) and "jbsorocaba" (Francisco) joined Erik and I as a team to discuss, test, critique and suggest ideas. Version 1.0 and now Version 1.1 represent the result of 9 months of fun and contributions by all. Recently, "mtncityman" joined the team and his "new" eyes have added valuable input for the latest Version 1.2.8.
 
 At the outset, any thought of WiFi was outside the scope of my understanding of both "C", let alone as a communication medium. The evolution of my original goal resulted in a device with the capabilities and support as in "Features" summarized below.
 
@@ -40,7 +40,7 @@ At the outset, any thought of WiFi was outside the scope of my understanding of 
 - Direct Serial or WiFi connection (WiFi for ESP8266 and ESP32 variants)
 - "Throttle" page giving direct and "instant" access to up to 10 Locos (all Arduino processor variants)
 - "Inventory" of locos - 10 Locos for UNOs, up to 50 for ESP models all supporting:-
-- Loco Name, Road Number, Address, and supported functions (10 function "slots" for any of 28 functions)
+  - Loco Name, Road Number, Address, and supported functions (10 function "slots" for any of 28 functions)
 - "Accessories" - from 36 for UNO models up to 96 for ESPs
 - "Routes" - basic setting of up to 6 accessories per route - 6 Routes for UNOs, up to 48 routes for ESPs
   
@@ -73,8 +73,8 @@ What You'll Need
   
 - Rotary Encoder
   - Reverse Button        - Arduino pin D8
-  - Clockwise Pulses      - Arduino pin D3
-  - AntiClockwise Pulses  - Arduino pin D2
+  - Clockwise Pulses      - Arduino pin D3 or D7 if not using Interrupts (a Config.h option)
+  - AntiClockwise Pulses  - Arduino pin D2 or D6 if not using Interrupts (a Config.h option)
 
 - Nextion Display
   - Software Serial RX    - Arduino pin D4 to Nextion TX wire (Blue)
@@ -137,14 +137,14 @@ The "Config.h" file in the sketch is the ONLY file you MIGHT need to modify for 
     
 Once the Arduino IDE has been set up for the intended host processor, no additional libraries are needed, although the UNO and ESP8266 versions need the Software Serial library. 
     
-The Nextion interface uses my own implementation using ideas from the Bently Born Nextion Library, and some ideas from the technique published by Perry Bebbington. 
+The Nextion interface uses my own implementation using ideas from the Bently Born Nextion Library. 
 
 # How To's
  
 Once everything is connected and Power is applied to the DCC++EX Controller, you'll need to do some basic configuration.
 TIP: At any stage, touching the Center portion of the Top of any page of the Nextion will take you back to either the Throttle or the Menu Page.
 
-At first the "Cover" page will be displayed for a few seconds, followed by the "Menu" page. If using WiFi, the "WiFi Status" Page will allow for configuration changes or confiirmation of WiFi Status.
+At first the "Cover" page will be displayed for a few seconds, followed by the "Menu" page. If using WiFi, the "WiFi Status" Page will be displayed after the Cover Page to allow for configuration changes or confiirmation of WiFi Status.
  
 # How To Populate the Locomotive "Shed" or Inventory. 
   Two methods are provided:-
@@ -155,11 +155,11 @@ At first the "Cover" page will be displayed for a few seconds, followed by the "
         Functions and their characteristics must be done manually. Default is 10 Locos.
       - In addition a page of Accessories and two very simple "Routes" are loaded
   or
-  - Select the "Locos" page, highlight one of the "Slots" by touching the "Loco Name" field, then press the "Edit" button
+  - Select the "Locos" page, highlight one of the "Slots" by touching the row of the "Slot" you wish to update, then press the "Edit" button
     - The "Loco Edit" page will be presented for completion.
       - Press "Done" and the "Locomotive Shed" page will be displayed again, ready for further additions.
 
-Highlighting an Inventory Row and pressing the "Select" button will pass that loco's details to the active Loco "Tab" on the "Throttle" page and locos can be operated.
+Highlighting an Inventory Row and pressing the "Select" button will pass that loco's details to the active Loco "Tab" on the "Throttle" page and the loco can then be operated.
 
 # How To Populate the Accessory page
   - Select the "Acc" page 
