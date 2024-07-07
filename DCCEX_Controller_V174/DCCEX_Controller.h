@@ -94,8 +94,8 @@
 
     #define accNameLen 9
     
-  #elif defined PICO_W
-    #define console Serial
+  #elif defined (PICO) || defined (PICO_W)
+    #define Console Serial
     #define nextion Serial2
     #if defined WIFI
       #include <WiFi.h>
