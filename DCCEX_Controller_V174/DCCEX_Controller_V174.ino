@@ -155,7 +155,9 @@ void setup()
   wait(250);
   #if defined (ESP8266)
     nextion.begin(57600);
-  #else
+  #elif defined (PICO) || defined (PICO_W)
+    nextion.begin(57600);
+  #elif defined (ESP32)
     nextion.begin(57600, SERIAL_8N1, 16, 17);     //This speed has been found to be suitable for both Hard- and Software Nextion Connections.
   #endif
   wait(500);
