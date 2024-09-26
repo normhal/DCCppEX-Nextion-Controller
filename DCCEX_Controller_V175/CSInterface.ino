@@ -205,9 +205,9 @@ void receiveCMD()
       }
     } 
   #else
-    while(console.available()>0)
+    while(Console.available()>0)
     {
-      c=console.read();
+      c=Console.read();
       if(c=='<') sprintf(commandString,"");                //Don't store the "<"
       else if(c=='>') parse(commandString);                //Also strip off the ">" and parse the received String
       else if(strlen(commandString)<MAX_COMMAND_LENGTH)    // if commandString still has space, append character just read from serial line
