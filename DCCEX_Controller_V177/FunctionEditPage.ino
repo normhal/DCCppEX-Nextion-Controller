@@ -22,7 +22,7 @@
 */
 void functionEditPage(uint8_t button)
 {
-  if(message.startsWith("FN"))
+  if(message.startsWith("FF"))
   {
     writeEEPROMByte((locoFuncBase + (editingID * 20)) + (g_fSlot*2), message.substring(2).toInt());
     return;
